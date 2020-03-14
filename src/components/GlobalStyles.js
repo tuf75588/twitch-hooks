@@ -12,7 +12,11 @@ function AppGlobalStyles() {
             box-sizing: border-box;
             background-color: #24292e;
           }
-          ul {
+          ul,
+          h1,
+          h2,
+          h3,
+          h4 {
             padding: 0;
             margin: 0;
           }

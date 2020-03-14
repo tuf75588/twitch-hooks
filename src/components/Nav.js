@@ -6,6 +6,7 @@ const navStyles = css`
   background: #9147ff;
   padding: 25px;
   margin-top: 10px;
+  margin-bottom: 10px;
   border: 0.25px solid #fff;
 
   h1 {
