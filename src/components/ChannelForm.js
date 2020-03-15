@@ -20,7 +20,7 @@ const StyledForm = styled.form`
 `;
 
 function ChannelForm() {
-  const {register, handleSubmit, errors, reset} = useForm();
+  const {register, handleSubmit, errors} = useForm();
   const [newChannel, setNewChannel] = React.useState('');
   const onSubmit = (data) => {
     console.log({data});
