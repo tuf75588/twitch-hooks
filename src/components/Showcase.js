@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {jsx, css} from '@emotion/core';
 import API from '../lib/api';
 import Card from './Card';
@@ -21,10 +21,14 @@ const showCaseStyles = css`
 `;
 
 function Showcase(props) {
+  const [users, setUsers] = useState([]);
+  const flattened = users.flat().slice(0, 7);
+  console.log(flattened);
   useEffect(() => {
     async function fetchData() {
       let data = await API.authWithTwitch();
-      console.log(data);
+
+      setUsers(data);
     }
     fetchData();
   }, []);

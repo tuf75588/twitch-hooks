@@ -48,10 +48,7 @@ async function authWithTwitch() {
     Promise.all(userData),
     Promise.all(streamData),
   ]);
-  return {
-    user: users.map((x) => x),
-    stream: streamInfo.map((x) => x),
-  };
+  return [...users, ...streamInfo];
 }
 
 export default {
