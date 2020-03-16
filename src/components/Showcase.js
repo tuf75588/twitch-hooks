@@ -22,7 +22,11 @@ const showCaseStyles = css`
 
 function Showcase(props) {
   useEffect(() => {
-    API.authWithTwitch();
+    async function fetchData() {
+      let data = await API.authWithTwitch();
+      console.log(data);
+    }
+    fetchData();
   }, []);
   return (
     <div css={showCaseStyles}>
