@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 // this component will eventually receive some props for UI
-function Card({username}) {
+function Card({username, avatar}) {
   return (
     <div
       css={css`
@@ -10,12 +10,15 @@ function Card({username}) {
         width: 100%;
       `}
     >
-      <h1>{username}</h1>
+      <h1>
+        <a href={`https://twitch.tv/${username}`}>{username}</a>
+      </h1>
       <div>
-        <p>more meta information will go here</p>
-        <p>like the stream link</p>
-        <p>maybe a user avatar</p>
-        <p>definitely an indicator if they are live or not</p>
+        <img
+          src={avatar}
+          alt={`Twitch avatar for ${username}`}
+          style={{height: '150px'}}
+        />
       </div>
     </div>
   );

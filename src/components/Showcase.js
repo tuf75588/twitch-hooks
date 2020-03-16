@@ -23,7 +23,7 @@ const showCaseStyles = css`
 function Showcase(props) {
   const [users, setUsers] = useState([]);
   const flattened = users.flat().slice(0, 7);
-  console.log(flattened);
+
   useEffect(() => {
     async function fetchData() {
       let data = await API.authWithTwitch();
@@ -34,14 +34,20 @@ function Showcase(props) {
   }, []);
   return (
     <div css={showCaseStyles}>
-      {API.streams.map((user) => {
-        return (
-          <div className="item" key={user}>
-            {/* this will be asynchronously rendered */}
-            <Card username={user} />
-          </div>
-        );
-      })}
+      {users &&
+        flattened.map((user) => {
+          console.log(user);
+          return (
+            <div className="item" key={user.id}>
+              {/* this will be asynchronously rendered */}
+              <Card
+                username={user.display_name}
+                avatar={user.profile_image_url}
+                description={user.description ? user.description : ''}
+              />
+            </div>
+          );
+        })}
     </div>
   );
 }
