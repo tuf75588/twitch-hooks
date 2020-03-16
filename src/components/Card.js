@@ -5,21 +5,34 @@ function Card({username, avatar}) {
   return (
     <div
       css={css`
-        color: blue;
         font-size: 1.1rem;
         width: 100%;
+        color: #f2f2f2;
+
+        .channel-link a {
+          text-decoration: none;
+          color: inherit;
+          margin-bottom: 5px;
+          display: block;
+        }
       `}
     >
-      <h1>
+      <h3 className="channel-link">
         <a href={`https://twitch.tv/${username}`}>{username}</a>
-      </h1>
+      </h3>
       <div>
         <img
+          css={css`
+            max-width: 85%;
+            max-height: 85%;
+            border-radius: 5px;
+            object-fit: cover;
+          `}
           src={avatar}
           alt={`Twitch avatar for ${username}`}
-          style={{height: '150px'}}
         />
       </div>
+      <p>some text</p>
     </div>
   );
 }
