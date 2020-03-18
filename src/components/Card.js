@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
-// this component will eventually receive some props for UI
+import CardListItem from './CardListItem';
 
 // grid container and grid items
 const gridContainer = css`
@@ -32,8 +32,23 @@ const gridContainer = css`
 `;
 
 function Card({users, liveRightNow}) {
+  console.log(users);
   if (!users) return <p>loading..</p>;
-  return <div css={gridContainer}></div>;
+  return (
+    <div css={gridContainer}>
+      {users.map(({display_name, profile_image_url, id}) => {
+        return (
+          <div className="item">
+            <CardListItem
+              key={id}
+              name={display_name}
+              img={profile_image_url}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default Card;
