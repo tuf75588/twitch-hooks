@@ -6,8 +6,8 @@ import CardListItem from './CardListItem';
 const gridContainer = css`
   color: #f2f2f2;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
+  grid-template-rows: 1fr auto;
   padding: 10px;
   grid-auto-flow: column;
   height: 100%;
@@ -32,16 +32,25 @@ const gridContainer = css`
 `;
 
 function Card({users, liveRightNow}) {
-  console.log(users);
+  const usernames = liveRightNow.map((user) => user.user_id);
+
   if (!users) return <p>loading..</p>;
   return (
     <div css={gridContainer}>
-      {users.map(({display_name, profile_image_url, id}) => {
+      {users.map(({display_name, profile_image_url, id}, i) => {
+        const status = {};
+        if (usernames.includes(id)) {
+          status.online = true;
+          status.user = display_name;
+        } else {
+          status.online = false;
+        }
+
         return (
-          <div className="item">
+          <div className="item" key={id}>
             <CardListItem
-              key={id}
               name={display_name}
+              status={status}
               img={profile_image_url}
             />
           </div>

@@ -7,7 +7,6 @@ import Card from './Card';
 
 function Showcase(props) {
   const [users, setUsers] = useState([]);
-  const [liveUsers, setLiveUsers] = useState([]);
   const flattened = users.flat().slice(0, users.length / 2);
 
   // get all streamers who are currently live

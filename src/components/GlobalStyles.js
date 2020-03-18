@@ -17,6 +17,7 @@ function AppGlobalStyles() {
           h2,
           h3,
           p,
+          span,
           h4 {
             padding: 0;
             margin: 0;
