@@ -1,40 +1,39 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core';
 // this component will eventually receive some props for UI
-function Card({username, avatar}) {
-  return (
-    <div
-      css={css`
-        font-size: 1.1rem;
-        width: 100%;
-        color: #f2f2f2;
 
-        .channel-link a {
-          text-decoration: none;
-          color: inherit;
-          margin-bottom: 5px;
-          display: block;
-        }
-      `}
-    >
-      <h3 className="channel-link">
-        <a href={`https://twitch.tv/${username}`}>{username}</a>
-      </h3>
-      <div>
-        <img
-          css={css`
-            max-width: 85%;
-            max-height: 85%;
-            border-radius: 5px;
-            object-fit: cover;
-          `}
-          src={avatar}
-          alt={`Twitch avatar for ${username}`}
-        />
-      </div>
-      <p>some text</p>
-    </div>
-  );
+// grid container and grid items
+const gridContainer = css`
+  color: #f2f2f2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: 1fr 1fr;
+  padding: 10px;
+  grid-auto-flow: column;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
+  .item {
+    background: #222327;
+    position: relative;
+    padding: 10px;
+    color: #000;
+    overflow-y: hidden;
+    text-align: center;
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      -webkit-transition: background-color 500ms linear;
+      -ms-transition: background-color 500ms linear;
+      transition: background-color 500ms linear;
+    }
+  }
+`;
+
+function Card({users, liveRightNow}) {
+  if (!users) return <p>loading..</p>;
+  return <div css={gridContainer}></div>;
 }
 
 export default Card;
