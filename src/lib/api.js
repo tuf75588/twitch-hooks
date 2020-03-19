@@ -1,7 +1,7 @@
 // unique client ID for twitch
 import {config} from '../config.js';
-const BASE_URL = 'https://api.twitch.tv/helix';
-const usersEndpoints = `${BASE_URL}/users`;
+export const BASE_URL = 'https://api.twitch.tv/helix';
+export const usersEndpoint = `${BASE_URL}/users`;
 const streamsEndpoint = `${BASE_URL}/streams`;
 const streams = [
   'sooler_',
@@ -13,7 +13,7 @@ const streams = [
   'eviltoaster',
 ];
 
-const options = {
+export const options = {
   headers: {
     Authorization: `Bearer ${config.access_token}`,
   },
@@ -21,7 +21,7 @@ const options = {
 
 // for getting each streamers information from twitch
 function getUserInfo(user) {
-  return fetch(`${usersEndpoints}?login=${user}`, options)
+  return fetch(`${usersEndpoint}?login=${user}`, options)
     .then((res) => {
       return res.json();
     })
