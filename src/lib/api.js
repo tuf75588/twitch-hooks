@@ -15,6 +15,7 @@ const streams = [
 
 export const options = {
   headers: {
+    'Client-ID': config.clientID,
     Authorization: `Bearer ${config.access_token}`,
   },
 };

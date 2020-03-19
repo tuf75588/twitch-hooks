@@ -1,38 +1,47 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import Autocomplete from 'react-autocomplete';
-import {usersEndpoint, options} from '../lib/api';
 import {config} from '../config';
-function ChannelForm() {
-  const [newChannel, setNewChannel] = React.useState('');
-  const [channels, setChannels] = React.useState([]);
-  React.useEffect(() => {
-    handleTwitchSearch('tiny').then((res) => {
-      console.log(res);
-    });
-  }, []);
-  const handleTwitchSearch = async (channel) => {
-    try {
-      const request = await fetch(
-        `${usersEndpoint}?login=${channel}`,
-        config.options,
-      );
-      const response = await request.json();
-      console.log({response});
-      setChannels(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
+function ChannelForm() {
+  // for the input
+  const [channelInput, setChannelInput] = React.useState('');
+  // for the API
+  const [channels, setChannels] = React.useState([]);
+
+  React.useEffect(() => {
+    handleChannelSearch(channelInput).then((ch) => {
+      setChannels(ch);
+    });
+  }, [channelInput]);
+
+  const handleChannelSearch = async (login) => {
+    const request = await fetch(
+      `https://api.twitch.tv/kraken/search/channels?query=${login}&limit=40`,
+      {
+        headers: {
+          'client-id': config.krakenID,
+          accept: 'application/vnd.twitchtv.v5+json',
+        },
+      },
+    );
+    const response = await request.json();
+    return response.channels || [];
+  };
   return (
     <React.Fragment>
       <label htmlFor="channels-autocomplete">Search for a Twitch Channel</label>
       <Autocomplete
-        inputProps={{id: 'channels-autocomplete'}}
+        getItemValue={(item) => item.display_name}
         items={channels}
+        onChange={(e) => setChannelInput(e.target.value)}
+        value={channelInput}
+        renderItem={(item, isHighlighted) => (
+          <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
+            {item.display_name}
+          </div>
+        )}
       />
-      <pre>{JSON.stringify(newChannel, 2, null)}</pre>
+      <pre>{JSON.stringify(channels, null, 2)}</pre>
     </React.Fragment>
   );
 }

@@ -24,7 +24,6 @@ const miniFlexbox = css`
 
 // just some ui
 function ListCardItem({img, name, id, isLive, status}) {
-  console.log(status);
   return (
     <div>
       <section css={miniFlexbox}>
