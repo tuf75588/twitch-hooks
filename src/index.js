@@ -22,7 +22,7 @@ function App() {
       <div css={HomeContainer}>
         <Navbar />
         <ChannelForm />
-        <Showcase title="hello">hello showcase!</Showcase>
+        <Showcase title="hello" />
       </div>
     </Fragment>
   );

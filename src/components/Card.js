@@ -6,10 +6,8 @@ import CardListItem from './CardListItem';
 const gridContainer = css`
   color: #f2f2f2;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
-  grid-template-rows: 1fr auto;
-  padding: 10px;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-flow: row;
   height: 100%;
   width: 100%;
   gap: 10px;

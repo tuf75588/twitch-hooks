@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
 import {config} from '../config';
-
+import {jsx, css} from '@emotion/core';
 function ChannelForm() {
   // for the input
   const [channelInput, setChannelInput] = React.useState('');
@@ -28,21 +29,35 @@ function ChannelForm() {
     return response.channels || [];
   };
   return (
-    <React.Fragment>
+    <div
+      css={css`
+        margin-bottom: 5em;
+        z-index: 1;
+        position: relative;
+        text-align: center;
+        label {
+          padding-right: 20px;
+          color: #f2f2f2;
+        }
+      `}
+    >
       <label htmlFor="channels-autocomplete">Search for a Twitch Channel</label>
       <Autocomplete
         getItemValue={(item) => item.display_name}
         items={channels}
         onChange={(e) => setChannelInput(e.target.value)}
         value={channelInput}
-        renderItem={(item, isHighlighted) => (
-          <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
+        renderItem={(item, isHighlighted, style) => (
+          <div
+            style={{
+              background: isHighlighted ? 'lightgray' : 'white',
+            }}
+          >
             {item.display_name}
           </div>
         )}
       />
-      <pre>{JSON.stringify(channels, null, 2)}</pre>
-    </React.Fragment>
+    </div>
   );
 }
 

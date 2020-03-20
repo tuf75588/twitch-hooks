@@ -12,6 +12,7 @@ const headingStyle = css`
 const imageStyles = css`
   max-width: 85%;
   max-height: 85%;
+
   object-fit: cover;
   border-radius: 5px;
 `;
