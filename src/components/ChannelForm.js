@@ -9,6 +9,7 @@ function ChannelForm() {
   // for the API
   const [channels, setChannels] = React.useState([]);
 
+  const [selectedChannel, setSelectedChannel] = React.useState('');
   React.useEffect(() => {
     handleChannelSearch(channelInput).then((ch) => {
       setChannels(ch);
@@ -32,12 +33,23 @@ function ChannelForm() {
     <div
       css={css`
         margin-bottom: 5em;
+        margin-top: 0;
+        margin-right: auto;
+        margin-left: auto;
         z-index: 1;
         position: relative;
         text-align: center;
+        border: 0.5px solid rgba(255, 255, 255, 0.09);
+        width: 50%;
+        padding-bottom: 10px;
         label {
-          padding-right: 20px;
+          padding-right: 10px;
           color: #f2f2f2;
+          font-size: 2rem;
+        }
+        input {
+          padding: 10px;
+          border-radius: 5px;
         }
       `}
     >
@@ -51,12 +63,15 @@ function ChannelForm() {
           <div
             style={{
               background: isHighlighted ? 'lightgray' : 'white',
+              cursor: 'pointer',
             }}
           >
             {item.display_name}
           </div>
         )}
+        onSelect={(value) => setSelectedChannel(value)}
       />
+      <p>{selectedChannel}</p>
     </div>
   );
 }
