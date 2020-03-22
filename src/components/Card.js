@@ -32,7 +32,6 @@ const gridContainer = css`
 function Card({users, liveRightNow}) {
   const usernames = liveRightNow.map((user) => user.user_id);
 
-  if (!users) return <p>loading..</p>;
   return (
     <div css={gridContainer}>
       {users.map(({display_name, profile_image_url, id}, i) => {

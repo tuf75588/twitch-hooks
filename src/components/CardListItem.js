@@ -24,11 +24,13 @@ const miniFlexbox = css`
 `;
 
 // just some ui
-function ListCardItem({img, name, id, isLive, status}) {
+function ListCardItem({img, name, id, status}) {
   return (
     <div>
       <section css={miniFlexbox}>
-        <h3 css={headingStyle}>{name}</h3>
+        <a href={`https://twitch.tv/${name}`}>
+          <h3 css={headingStyle}>{name}</h3>
+        </a>
         <span
           aria-label="emoji"
           alt="online or not"

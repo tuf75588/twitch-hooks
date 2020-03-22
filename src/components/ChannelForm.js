@@ -42,7 +42,7 @@ function ChannelForm({addNewUser}) {
 
     setChannelInput('');
   };
-  console.log('SELECTEDCHANNEL FOR ADDING:', selectedChannel);
+
   return (
     <div
       css={css`
@@ -101,9 +101,7 @@ function ChannelForm({addNewUser}) {
           color: white;
           font-size: 36px;
         `}
-      >
-        {selectedChannel}
-      </p>
+      ></p>
     </div>
   );
 }

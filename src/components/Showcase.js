@@ -9,7 +9,7 @@ import ChannelForm from './ChannelForm';
 function Showcase(props) {
   const [users, setUsers] = useState([]);
   const flattened = users.flat().slice(0, users.length / 2);
-
+  const [loading, setLoading] = useState(false);
   // get all streamers who are currently live
   const liveRightNow = users
     .flat()
@@ -27,9 +27,11 @@ function Showcase(props) {
     });
   };
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       let data = await API.authWithTwitch();
       setUsers(data);
+      setLoading(false);
     }
     fetchData();
   }, []);
@@ -37,7 +39,19 @@ function Showcase(props) {
   return (
     <Fragment>
       <ChannelForm addNewUser={addNewUser} />
-      <Card users={userInfo} liveRightNow={liveRightNow} />
+      {loading ? (
+        <p
+          css={css`
+            color: white;
+            font-size: 32px;
+            text-align: center;
+          `}
+        >
+          Loading..
+        </p>
+      ) : (
+        <Card users={userInfo} liveRightNow={liveRightNow} />
+      )}
     </Fragment>
   );
 }
