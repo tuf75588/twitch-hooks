@@ -21,7 +21,6 @@ function App() {
       <AppGlobalStyles />
       <div css={HomeContainer}>
         <Navbar />
-        <ChannelForm />
         <Showcase title="hello" />
       </div>
     </Fragment>

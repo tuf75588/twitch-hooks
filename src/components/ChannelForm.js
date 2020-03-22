@@ -3,7 +3,8 @@ import React from 'react';
 import Autocomplete from 'react-autocomplete';
 import {config} from '../config';
 import {jsx, css} from '@emotion/core';
-function ChannelForm() {
+import {getUserInfo} from '../lib/api';
+function ChannelForm({addNewUser}) {
   // for the input
   const [channelInput, setChannelInput] = React.useState('');
   // for the API
@@ -29,6 +30,19 @@ function ChannelForm() {
     const response = await request.json();
     return response.channels || [];
   };
+
+  const selectedChannelInfo = async (item) => {
+    setSelectedChannel(item);
+    try {
+      const user = await getUserInfo(item);
+      addNewUser(user);
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    setChannelInput('');
+  };
+  console.log('SELECTEDCHANNEL FOR ADDING:', selectedChannel);
   return (
     <div
       css={css`
@@ -39,39 +53,57 @@ function ChannelForm() {
         z-index: 1;
         position: relative;
         text-align: center;
-        border: 0.5px solid rgba(255, 255, 255, 0.09);
-        width: 50%;
+
+        width: 70%;
         padding-bottom: 10px;
-        label {
-          padding-right: 10px;
-          color: #f2f2f2;
-          font-size: 2rem;
-        }
-        input {
-          padding: 10px;
-          border-radius: 5px;
-        }
       `}
     >
-      <label htmlFor="channels-autocomplete">Search for a Twitch Channel</label>
-      <Autocomplete
-        getItemValue={(item) => item.display_name}
-        items={channels}
-        onChange={(e) => setChannelInput(e.target.value)}
-        value={channelInput}
-        renderItem={(item, isHighlighted, style) => (
-          <div
-            style={{
-              background: isHighlighted ? 'lightgray' : 'white',
-              cursor: 'pointer',
-            }}
-          >
-            {item.display_name}
-          </div>
-        )}
-        onSelect={(value) => setSelectedChannel(value)}
-      />
-      <p>{selectedChannel}</p>
+      <section
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          label {
+            padding-right: 10px;
+            color: #f2f2f2;
+            font-size: 2rem;
+          }
+          input {
+            padding: 10px;
+            border-radius: 5px;
+          }
+        `}
+      >
+        <label htmlFor="channels-autocomplete">
+          Search for a Twitch Channel
+        </label>
+        <Autocomplete
+          getItemValue={(item) => item.display_name}
+          items={channels}
+          onChange={(e) => setChannelInput(e.target.value)}
+          value={channelInput}
+          renderItem={(item, isHighlighted) => (
+            <div
+              style={{
+                background: isHighlighted ? 'lightgray' : 'white',
+                cursor: 'pointer',
+              }}
+              key={item.display_name}
+            >
+              {item.display_name}
+            </div>
+          )}
+          onSelect={(value) => selectedChannelInfo(value)}
+        />
+      </section>
+      <p
+        css={css`
+          color: white;
+          font-size: 36px;
+        `}
+      >
+        {selectedChannel}
+      </p>
     </div>
   );
 }

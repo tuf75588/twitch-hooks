@@ -21,7 +21,7 @@ export const options = {
 };
 
 // for getting each streamers information from twitch
-function getUserInfo(user) {
+export function getUserInfo(user) {
   return fetch(`${usersEndpoint}?login=${user}`, options)
     .then((res) => {
       return res.json();
